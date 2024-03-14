@@ -1,0 +1,24 @@
+name: Check change File
+description: Check if a new change file is set
+
+inputs:
+  pattern:
+    description: 'Where to search for the change file. Can be a glob pattern'
+    required: false
+    default: '.changes/unreleased/**'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          changes:
+            - ${{ inputs.filename }}
+    - name: Check changes
+      if: steps.filter.outputs.changes == 'false'
+      shell: bash
+      run: |
+        echo "No new change file set in ${{ inputs.filename }}"
+        exit 1

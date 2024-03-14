@@ -15,7 +15,8 @@ runs:
       with:
         filters: |
           changes:
-            - ${{ inputs.filename }}
+            - '${{ inputs.pattern }}'
+
     - name: Check changes
       if: steps.filter.outputs.changes == 'false'
       shell: bash

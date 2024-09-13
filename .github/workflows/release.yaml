@@ -1,0 +1,30 @@
+name: Validations
+
+on:
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.type != 'pull_request'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Prepare release
+      uses: ./
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        release-workflow: ''
+        version-command: |
+          sed -r -i 's#(labd/changie-release-action@)([^[:space:]]+)#\1'"${PACKAGE_VERSION}"'#' README.md
+

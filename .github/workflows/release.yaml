@@ -1,4 +1,4 @@
-name: Validations
+name: Release
 
 on:
   push:

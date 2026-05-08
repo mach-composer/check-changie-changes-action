@@ -21,5 +21,7 @@ runs:
       if: steps.filter.outputs.changes == 'false'
       shell: bash
       run: |
-        echo "No new change file set in ${{ inputs.pattern }}"
+        echo "No new change file set in ${INPUTS_PATTERN}"
         exit 1
+      env:
+        INPUTS_PATTERN: ${{ inputs.pattern }}

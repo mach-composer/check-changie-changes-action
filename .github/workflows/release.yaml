@@ -25,4 +25,5 @@ jobs:
       uses: labd/changie-release-action@059406879b04f6e073547b325fbbff9a573038e3 # v2.0.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        create-release: true
 
